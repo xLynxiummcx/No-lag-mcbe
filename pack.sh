@@ -7,7 +7,7 @@ ZIP_FILE="$BUILD_DIR/Android.zip"
 
 # Run the build script
 echo "Running build script..."
-$BUILD_SCRIPT -p Android -m your_material_file -t 4
+$BUILD_SCRIPT -p Android
 
 # Ensure the build directory exists
 if [ -d "$ANDROID_BUILD_DIR" ]; then

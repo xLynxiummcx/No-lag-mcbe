@@ -19,8 +19,8 @@ jobs:
         path: |
           ${{ github.workspace }}/env
           ${{ github.workspace }}/data
-    - run: ./Setup.sh
-    - run: ./Build.sh -p Android  -t 4
+    - run: ./setup.sh
+    - run: ./build.sh -p Android  -t 4
     - run: ./pack.sh
     - uses: actions/upload-artifact@v4
       with:

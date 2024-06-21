@@ -21,7 +21,7 @@ jobs:
     - run: chmod +x setup.sh
     - run: ./setup.sh
     - run: chmod +x build.sh
-    - run: ./build.sh -p Android -m your_material_file -t 4
+    - run: ./build.sh -p Android
     - run: chmod +x pack.sh
     - run: ./pack.sh
     - uses: actions/upload-artifact@v4

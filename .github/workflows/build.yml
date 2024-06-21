@@ -21,6 +21,11 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Run setup script
+        run: |
+          chmod +x ./setup.sh
+          ./setup.sh
+
       - name: Run build script
         run: |
           chmod +x ./build.sh
@@ -30,4 +35,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: build-artifacts
-          path: ./path/to/artifacts
+          path: ./build/Android

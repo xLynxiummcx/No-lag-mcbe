@@ -24,7 +24,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Run setup script
+      - name: Run setup script for Linux
         run: |
           chmod +x ./setup.sh
           ./setup.sh
@@ -38,7 +38,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: build-artifacts-linux
-          path: ./path/to/linux-artifacts
+          path: ./build/Android
 
   build_windows:
     runs-on: windows-latest
@@ -64,4 +64,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: build-artifacts-windows
-          path: ./build/Windows/windows-artifacts
+          path: ./build/Windows

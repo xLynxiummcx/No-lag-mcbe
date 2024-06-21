@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - devel
 
 jobs:
   android:
@@ -19,8 +18,11 @@ jobs:
         path: |
           ${{ github.workspace }}/env
           ${{ github.workspace }}/data
+    - run: chmod +x setup.sh
     - run: ./setup.sh
-    - run: ./build.sh -p Android  -t 4
+    - run: chmod +x build.sh
+    - run: ./build.sh -p Android -m your_material_file -t 4
+    - run: chmod +x pack.sh
     - run: ./pack.sh
     - uses: actions/upload-artifact@v4
       with:

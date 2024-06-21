@@ -1,13 +1,12 @@
 #!/bin/bash
 
 MBT_VERSION="0.8.2"
-DATA_VERSION="1.20.20.21"
-
 MBT_JAR=env/jar/MaterialBinTool-$MBT_VERSION-all.jar
 SHADERC=env/bin/shaderc
-DATA_DIR=data/$DATA_VERSION
+DATA_DIR=data
 
 MBT_JAR_URL="https://github.com/ddf8196/MaterialBinTool/releases/download/v$MBT_VERSION/MaterialBinTool-$MBT_VERSION-all.jar"
+M_DATA_URL="https://github.com/devendrn/RenderDragonData"
 
 CPU_ARCH=$(uname -m)
 if [ $CPU_ARCH == "x86_64" ]; then
@@ -20,7 +19,6 @@ else
   echo "Error: No shaderc binary found for $CPU_ARCH"
   exit 1;
 fi
-
 SHADERC_URL="https://github.com/devendrn/RenderDragonSourceCodeInv/releases/download/v1/shaderc.$CPU_ARCH"
 
 if [ "$1" == "-f" ]; then
@@ -41,10 +39,28 @@ if [ ! -f "$SHADERC" ]; then
   chmod +x $SHADERC
 fi
 
-if [ ! -d "data" ]; then
+# libc++_shared.so not found fix for termux
+TERMUX_FILES="/data/data/com.termux/files"
+if [ -d "$TERMUX_FILES" ] && [ ! -f "env/lib/libc++_shared.so" ]; then
+  echo "Termux fix: libc++_shared.so"
+  mkdir -p env/lib
+  cp $TERMUX_FILES/usr/lib/libc++_shared.so env/lib
+fi
+
+if [ ! -d "$DATA_DIR" ]; then
   echo "Cloning RenderDragonData"
-  git clone https://github.com/ddf8196/RenderDragonData.git data
-elif [ ! -d "$DATA_DIR" ]; then
-  cd data
+  git clone --filter=tree:0 $M_DATA_URL $DATA_DIR
+else 
+  echo "Updating RenderDragonData"
+  cd $DATA_DIR
   git pull
+fi
+
+if [ "$1" == "-u" ]; then
+  echo "Unpacking:"
+  MB_DIRS=$DATA_DIR/*
+  for i in $MB_DIRS; do
+    echo -e "\n> $i"
+    java -jar $MBT_JAR --unpack --data-only $i/*.material.bin
+  done
 fi

@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - devel
 
 jobs:
   android:
@@ -20,6 +21,9 @@ jobs:
           ${{ github.workspace }}/data
     - run: chmod +x setup.sh
     - run: ./setup.sh
-    - run: chmod +x build.sh
-    - run: ./build.sh -p Android
-      
+    - run: chmod +x pack.sh
+    - run: ./pack.sh
+    - uses: actions/upload-artifact@v4
+      with:
+        name: newb-x-android
+        path: build/Android.zip

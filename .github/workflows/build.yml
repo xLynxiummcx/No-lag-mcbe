@@ -22,7 +22,4 @@ jobs:
     - run: ./setup.sh
     - run: chmod +x build.sh
     - run: ./build.sh -p Android
-    - uses: actions/upload-artifact@v4
-      with:
-        name: newb-x-android
-        path: ./build/Android
+      

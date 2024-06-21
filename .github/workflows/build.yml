@@ -34,7 +34,7 @@ jobs:
       - name: Run Windows build script (if available)
         if: ${{ runner.os == 'Windows' }}
         run: |
-          .\build.bat
+          .\build.bat -p Windows
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3

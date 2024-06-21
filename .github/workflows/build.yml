@@ -9,35 +9,59 @@ on:
       - main
 
 jobs:
-  build:
+  build_linux:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.x]
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Python (if needed)
-        uses: actions/setup-python@v4
+      - name: Set up Python
+        uses: actions/setup-python@v2
         with:
-          python-version: '3.x'
+          python-version: ${{ matrix.python-version }}
 
       - name: Run setup script
         run: |
           chmod +x ./setup.sh
           ./setup.sh
 
-      - name: Run build script
+      - name: Run build script for Linux
         run: |
           chmod +x ./build.sh
           ./build.sh
 
-      - name: Run Windows build script (if available)
-        if: ${{ runner.os == 'Windows' }}
-        run: |
-          .\build.bat -p Windows
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
+      - name: Upload build artifacts for Linux
+        uses: actions/upload-artifact@v2
         with:
-          name: build-artifacts
-          path: ./path/to/artifacts
+          name: build-artifacts-linux
+          path: ./path/to/linux-artifacts
+
+  build_windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python (if needed)
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Run setup script for Windows
+        run: |
+          .\setup.sh
+
+      - name: Run build script for Windows
+        run: |
+          .\build.bat
+
+      - name: Upload build artifacts for Windows
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-artifacts-windows
+          path: ./build/Windows/windows-artifacts

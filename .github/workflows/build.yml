@@ -1,29 +1,33 @@
-name: Build Workflow
+name: Build and Upload Artifacts
 
 on:
   push:
     branches:
       - main
-      - devel
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  android:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-    - uses: actions/cache@v4
-      with:
-        key: env-files-linux
-        path: |
-          ${{ github.workspace }}/env
-          ${{ github.workspace }}/data
-    - run: chmod +x setup.sh
-    - run: ./setup.sh
-    - run: chmod +x pack.sh
-    - run: ./pack.sh
-    - uses: actions/upload-artifact@v4
-      with:
-        name: newb-x-android
-        path: build/Android.zip
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python (if needed)
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Run build script
+        run: |
+          chmod +x ./build.sh
+          ./build.sh
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifacts
+          path: ./path/to/artifacts

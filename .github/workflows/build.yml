@@ -31,8 +31,13 @@ jobs:
           chmod +x ./build.sh
           ./build.sh
 
+      - name: Run Windows build script (if available)
+        if: ${{ runner.os == 'Windows' }}
+        run: |
+          .\build.bat
+
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
           name: build-artifacts
-          path: ./build/Android
+          path: ./path/to/artifacts

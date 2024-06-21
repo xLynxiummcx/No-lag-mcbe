@@ -1,4 +1,4 @@
-name: Build
+name: Build Workflow
 
 on:
   push:
@@ -23,8 +23,7 @@ jobs:
         java-version: '11'
     
     - name: Set up environment
-      run: chmod +x Setup.sh && ./Setup.sh
+      run: ./Setup.sh
 
     - name: Build project
-      run: chmod +x Build.sh && ./Build.sh -p Android -m your_material_file -t 4
-      
+      run: ./Build.sh -p Android -t 4

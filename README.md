@@ -3,6 +3,6 @@
 
 ### How to use ###
 
-* 1.download a release
-* 2.import to Minecraft patch
-* 3. Activate on global resources
+> * 1.download a release
+> * 2.import to Minecraft patch
+> * 3*Activate on global resources

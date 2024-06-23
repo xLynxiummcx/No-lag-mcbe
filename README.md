@@ -1,5 +1,7 @@
 # No-lag-mcbe
-# No-lag-client A minimal client/texture pack/shader made to increase fps by removing unnecessary things
+# No-lag-client 
+
+A minimal client/texture pack/shader made to increase fps by removing unnecessary things
 
 > * only support Android for now  
 

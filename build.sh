@@ -15,7 +15,7 @@ MATERIAL_DIR=materials
 
 TARGETS=""
 MATERIALS=""
-}
+
 ARG_MODE=""
 for t in "$@"; do
   if [ "${t:0:1}" == "-" ]; then

@@ -1,6 +1,11 @@
 $input v_color0, v_fog, v_texcoord0, v_lightmapUV, v_prevTexcoord0
 #include <bgfx_shader.sh>
+
 uniform vec4 FogColor;
+
+SAMPLER2D(s_MatTexture, 0);
+SAMPLER2D(s_SeasonsTexture, 1);
+SAMPLER2D(s_LightMapTexture, 2);
 
 
 float calculateMotionBlurAmount(vec2 currTexcoord, vec2 prevTexcoord) {

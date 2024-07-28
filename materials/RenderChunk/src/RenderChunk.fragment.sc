@@ -46,7 +46,7 @@ void main() {
     diffuse.rgb *= texture2D(s_LightMapTexture, v_lightmapUV).rgb;
 
     // Calculate distance from camera to fragment
-    float distance = length(ViewPositionAndTime.xyz - v_viewPos.xyz);
+    float distance = length(ViewPositionAndTime.xyz - v_viewPos);
 
     // Apply pixelation effect based on distance
     float pixelSize = 1.0;

@@ -1,12 +1,19 @@
-$input v_color0, v_fog, v_texcoord0, v_lightmapUV
+$input v_color0, v_fog, v_texcoord0, v_lightmapUV, v_viewPos
 
 #include <bgfx_shader.sh>
 
 uniform vec4 FogColor;
+uniform vec4 FogAndDistanceControl; // x: fogStart, y: fogEnd, z: pixelationStart, w: pixelationEnd
+uniform vec4 ViewPositionAndTime; // x, y, z: camera position, w: time
 
 SAMPLER2D(s_MatTexture, 0);
 SAMPLER2D(s_SeasonsTexture, 1);
 SAMPLER2D(s_LightMapTexture, 2);
+
+vec2 applyPixelation(vec2 uv, float pixelSize) {
+    vec2 pixelatedUV = floor(uv / pixelSize) * pixelSize;
+    return pixelatedUV;
+}
 
 void main() {
     vec4 diffuse;
@@ -38,22 +45,17 @@ void main() {
 
     diffuse.rgb *= texture2D(s_LightMapTexture, v_lightmapUV).rgb;
 
-    // Calculate motion blur effect
-    vec4 currentPos = gl_FragCoord; // Current screen position
-    vec4 prevPos = currentPos + u_prevWorldPosOffset; // Estimated previous position
-    vec2 velocity = (currentPos.xy - prevPos.xy) * 0.1; // Calculate velocity and scale it down
+    // Calculate distance from camera to fragment
+    float distance = length(ViewPositionAndTime.xyz - v_viewPos.xyz);
 
-    // Apply motion blur based on velocity
-    vec4 motionBlurColor = vec4(0.0);
-    int samples = 5;
-    for (int i = 0; i < samples; ++i) {
-        vec2 offset = velocity * (float(i) / float(samples - 1));
-        motionBlurColor += texture2D(s_MatTexture, v_texcoord0 + offset);
+    // Apply pixelation effect based on distance
+    float pixelSize = 1.0;
+    if (distance > FogAndDistanceControl.z) {
+        float t = clamp((distance - FogAndDistanceControl.z) / (FogAndDistanceControl.w - FogAndDistanceControl.z), 0.0, 1.0);
+        pixelSize = mix(1.0, 8.0, t); // Increase pixel size based on distance
     }
-    motionBlurColor /= float(samples);
-
-    // Mix the motion blur color with the original diffuse color
-    diffuse.rgb = mix(diffuse.rgb, motionBlurColor.rgb, 0.5); // Adjust the blend factor as needed
+    vec2 pixelatedUV = applyPixelation(v_texcoord0, pixelSize);
+    diffuse.rgb = texture2D(s_MatTexture, pixelatedUV).rgb;
 
     diffuse.rgb = mix(diffuse.rgb, FogColor.rgb, v_fog.a);
     gl_FragColor = diffuse;

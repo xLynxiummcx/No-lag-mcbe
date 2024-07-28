@@ -1,4 +1,3 @@
-//lod test
 $input a_color0, a_position, a_texcoord0, a_texcoord1
 #ifdef INSTANCING
 $input i_data0, i_data1, i_data2

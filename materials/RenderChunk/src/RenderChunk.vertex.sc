@@ -2,7 +2,7 @@ $input a_color0, a_position, a_texcoord0, a_texcoord1
 #ifdef INSTANCING
     $input i_data0, i_data1, i_data2
 #endif
-$output v_color0, v_fog, v_texcoord0, v_lightmapUV
+$output v_color0, v_fog, v_texcoord0, v_lightmapUV, v_viewPos
 
 #include <bgfx_shader.sh>
 
@@ -51,5 +51,9 @@ void main() {
     v_lightmapUV = a_texcoord1;
     v_color0 = color;
     v_fog = fogColor;
+
+    // Pass the view position to the fragment shader
+    v_viewPos = worldPos;
+
     gl_Position = mul(u_viewProj, vec4(worldPos, 1.0));
 }

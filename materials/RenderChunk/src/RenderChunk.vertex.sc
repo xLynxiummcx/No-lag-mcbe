@@ -1,4 +1,4 @@
-
+//lod test
 $input a_color0, a_position, a_texcoord0, a_texcoord1
 #ifdef INSTANCING
 $input i_data0, i_data1, i_data2
@@ -38,7 +38,10 @@ void main()
     float camDis = length(modelCamPos);
 
     // Calculate LOD level
-    int lodLevel = int(camDis / 4.0); // adjust the divisor value as needed
+    float lodLevel = clamp(camDis / 20.0, 0.0, 4.0); // adjust the divisor value as needed, max LOD level 4
+
+    // Apply pixelation effect based on LOD level
+    vec3 pixelatedWorldPos = floor(worldPos / lodLevel + 0.5) * lodLevel;
 
     vec4 fogColor;
     fogColor.rgb = FogColor.rgb;
@@ -56,8 +59,10 @@ void main()
     v_color0 = color;
     v_fog = fogColor;
 
-    // Use LOD level to adjust vertex position or other calculations
-    // ...
-
-    gl_Position = mul(u_viewProj, vec4(worldPos, 1.0));
+    // Use pixelated position for distant objects
+    if (lodLevel > 1.0) {
+        gl_Position = mul(u_viewProj, vec4(pixelatedWorldPos, 1.0));
+    } else {
+        gl_position = mul(u_viewProj, vec4(worldPos, 1.0));
+    }
 }

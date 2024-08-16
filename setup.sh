@@ -1,11 +1,11 @@
 #!/bin/bash
 
-MBT_VERSION="0.9.0"
+MBT_VERSION="0.9.1"
 MBT_JAR=env/jar/MaterialBinTool-$MBT_VERSION-all.jar
 SHADERC=env/bin/shaderc
 DATA_DIR=data
 
-MBT_JAR_URL="https://github.com/devendrn/newb-shader/releases/download/dev/MaterialBinTool-$MBT_VERSION-all.jar"
+MBT_JAR_URL="https://github.com/ddf8196/MaterialBinTool/releases/tag/v0.9.1"
 M_DATA_URL="https://github.com/devendrn/RenderDragonData"
 
 CPU_ARCH=$(uname -m)

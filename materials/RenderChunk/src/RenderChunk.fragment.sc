@@ -3,9 +3,7 @@ $input v_color0, v_fog, v_texcoord0, v_lightmapUV, v_viewPos
 #include <bgfx_shader.sh>
 
 uniform vec4 FogColor;
-uniform vec4 FogAndDistanceControl; // x: fogStart, y: fogEnd, z: pixelationStart, w: pixelationEnd
-uniform vec4 ViewPositionAndTime; // x, y, z: camera position, w: time
-
+uniform vec4 FogAndDistanceControl; 
 SAMPLER2D(s_MatTexture, 0);
 SAMPLER2D(s_SeasonsTexture, 1);
 SAMPLER2D(s_LightMapTexture, 2);
@@ -45,17 +43,6 @@ void main() {
 
     diffuse.rgb *= texture2D(s_LightMapTexture, v_lightmapUV).rgb;
 
-    // Calculate distance from camera to fragment
-    float distance = length(ViewPositionAndTime.xyz - v_viewPos);
-
-    // Apply pixelation effect based on distance
-    float pixelSize = 1.0;
-    if (distance > FogAndDistanceControl.z) {
-        float t = clamp((distance - FogAndDistanceControl.z) / (FogAndDistanceControl.w - FogAndDistanceControl.z), 0.0, 1.0);
-        pixelSize = mix(1.0, 8.0, t); // Increase pixel size based on distance
-    }
-    vec2 pixelatedUV = applyPixelation(v_texcoord0, pixelSize);
-    diffuse.rgb = texture2D(s_MatTexture, pixelatedUV).rgb;
 
     diffuse.rgb = mix(diffuse.rgb, FogColor.rgb, v_fog.a);
     gl_FragColor = diffuse;

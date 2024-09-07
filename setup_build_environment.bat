@@ -1,7 +1,7 @@
 @echo off
 
-set MBT_VERSION=0.8.1
-set DATA_VERSION=1.20.20.21
+set MBT_VERSION=0.9.1
+set DATA_VERSION=1.20.60
 
 set MBT_DIR=env\MaterialBinTool-%MBT_VERSION%
 set MBT=%MBT_DIR%\MaterialBinTool-%MBT_VERSION%-native-image.exe
@@ -28,11 +28,14 @@ if not exist %SHADERC% (
 
 if not exist data (
     echo Cloning RenderDragonData
-    git clone https://github.com/ddf8196/RenderDragonData.git data
+    git clone --branch %DATA_VERSION% --single-branch --depth 1 --origin origin https://github.com/ddf8196/RenderDragonData.git data
 )
 if not exist %DATA_DIR% (
     echo Updating RenderDragonData
     pushd data
+    git fetch origin %DATA_VERSION%:%DATA_VERSION%
+    git checkout %DATA_VERSION%
+    git checkout .
     git pull
     popd
 )

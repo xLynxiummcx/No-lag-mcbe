@@ -1,6 +1,6 @@
 @echo off
 
-set MBT_VERSION=0.9.1
+set MBT_VERSION=0.8.2
 set DATA_VERSION=1.20.60
 
 set MBT_DIR=env\MaterialBinTool-%MBT_VERSION%

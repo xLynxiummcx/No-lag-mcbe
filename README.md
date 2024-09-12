@@ -8,6 +8,7 @@ https://mcpedl.com/no-lag-client/
 A minimal client/texture pack/shader made to increase fps by removing unnecessary things
 
 > * only support Android for now  
+] * you git clone and build for other platforms
 
 ### How to use ###
 

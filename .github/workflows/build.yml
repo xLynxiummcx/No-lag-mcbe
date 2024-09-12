@@ -1,4 +1,4 @@
-name: Build and Upload Artifacts
+name: updated build
 
 on:
   push:
@@ -30,16 +30,16 @@ jobs:
           chmod +x ./build.sh
           ./build.sh
       - name: Upload build artifacts for Linux
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: build-artifacts-linux
           path: ./build/Android
 
   build_windows:
-    runs-on: windows-2019
+    runs-on: windows-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Run build script for Windows
         run: |
           .\build.bat

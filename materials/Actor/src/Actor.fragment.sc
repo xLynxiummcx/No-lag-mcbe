@@ -1,4 +1,4 @@
-$input v_color0, v_light, v_texcoord0
+$input v_color0, v_fog, v_light, v_texcoord0
 
 #include <bgfx_shader.sh>
 #include <MinecraftRenderer.Materials/ActorUtil.dragonh>
@@ -28,7 +28,11 @@ void main() {
     #if DEPTH_ONLY
         gl_FragColor = vec4(0.0, 0.0, 0.0, 0.0);
         return;
-    
+    #elif DEPTH_ONLY_OPAQUE
+        gl_FragColor = vec4(applyFog(vec3(1.0, 1.0, 1.0), v_fog.rgb, v_fog.a), 1.0);
+        return;
+    #endif
+
     vec4 albedo = getActorAlbedoNoColorChange(v_texcoord0, s_MatTexture, s_MatTexture1, MatColor);
 
     #if ALPHA_TEST
@@ -54,7 +58,6 @@ void main() {
         albedo = applyHudOpacity(albedo, HudOpacity.x);
     #endif
 
-  //  albedo.rgb = applyFog(albedo.rgb, 1.0,1.0);
     
     gl_FragColor = albedo;
 }

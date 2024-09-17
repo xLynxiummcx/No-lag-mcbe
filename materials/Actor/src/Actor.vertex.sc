@@ -3,7 +3,7 @@ $input a_position, a_color0, a_texcoord0, a_indices, a_normal
     $input i_data0, i_data1, i_data2
 #endif
 
-$output v_color0, v_light, v_texcoord0
+$output v_color0, v_fog, v_light, v_texcoord0
 
 #include <bgfx_shader.sh>
 #include <MinecraftRenderer.Materials/FogUtil.dragonh>
@@ -69,6 +69,7 @@ void main() {
         v_color0 = a_color0;
     #endif
 
+    v_fog = fog; 
     v_light = light;
     gl_Position = position;
 }

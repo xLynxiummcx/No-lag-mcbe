@@ -9,7 +9,7 @@ SAMPLER2D(s_SeasonsTexture, 1);
 SAMPLER2D(s_LightMapTexture, 2);
 
 void main() {
-    vec4 diffuse = vec4(1.0);  // Initialize
+    vec4 diffuse = vec4(1.0,1.0,1.0,1.0);  // Initialize
 
 #if !defined(DEPTH_ONLY_OPAQUE) && !defined(DEPTH_ONLY)
     diffuse = texture2D(s_MatTexture, v_texcoord0);

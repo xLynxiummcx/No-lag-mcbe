@@ -69,7 +69,6 @@ void main() {
         v_color0 = a_color0;
     #endif
 
-  //  v_fog = fog; //remove fog
     v_light = light;
     gl_Position = position;
 }

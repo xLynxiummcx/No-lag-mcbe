@@ -28,11 +28,7 @@ void main() {
     #if DEPTH_ONLY
         gl_FragColor = vec4(0.0, 0.0, 0.0, 0.0);
         return;
-    #elif DEPTH_ONLY_OPAQUE
-        gl_FragColor = vec4(applyFog(vec3(1.0, 1.0, 1.0), v_fog.rgb, v_fog.a), 1.0);
-        return;
-    #endif
-
+    
     vec4 albedo = getActorAlbedoNoColorChange(v_texcoord0, s_MatTexture, s_MatTexture1, MatColor);
 
     #if ALPHA_TEST

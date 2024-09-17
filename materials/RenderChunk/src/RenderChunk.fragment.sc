@@ -34,8 +34,6 @@ void main() {
     vec3 lightMapColor = texture2D(s_LightMapTexture, v_lightmapUV).rgb;
     diffuse.rgb *= lightMapColor;
 
-    // Apply fog based on fog alpha value
-    diffuse.rgb = mix(diffuse.rgb, FogColor.rgb, v_fog.a);
 
     // Final color output
     gl_FragColor = diffuse;

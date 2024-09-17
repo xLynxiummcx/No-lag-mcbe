@@ -69,7 +69,7 @@ if %MBT_DEBUG%==1 (
 
 set ALL_PLATFORM=0
 if "%TARGET_PLATFORM%"=="" (
-    set TARGET_PLATFORM=Windows Android iOS
+    set TARGET_PLATFORM=Windows
     set ALL_PLATFORM=1
 )
 for %%p in (%TARGET_PLATFORM%) do (

@@ -33,9 +33,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: build-artifacts-linux
-          path:
-              ./build/Android
-                   ./build/pack
+          path:  |
+          ./build/Android
+           ./build/pack
           
   build_windows:
     runs-on: windows-latest

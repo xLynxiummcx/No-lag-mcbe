@@ -1,0 +1,22 @@
+{
+  "format_version": 2,
+  "header": {
+    "description": "OPTIMIZER FOR RenderDragon\n§cOnly works with Patched Minecraft",
+    "name": "no lag beta",
+    "uuid": "f0de0928-059f-4cad-8a7c-9cef67eba014",
+    "version": [0, 0, 6],
+    "min_engine_version": [1, 21, 20]
+  },
+  "modules": [
+    {
+      "description": "fps boost",
+      "type": "resources",
+      "uuid": "1109a05a-ea8d-4180-81e6-7085ef27292c",
+      "version": [3, 66, 99]
+    }
+  ],
+  "metadata": {
+    "authors": ["LynxiumMC"],
+    "url": "(link unavailable)"
+  }
+}

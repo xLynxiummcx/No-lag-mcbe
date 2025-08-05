@@ -16,11 +16,11 @@ void main() {
 #else
     diffuse = texture2D(s_MatTexture, v_texcoord0);
 
-#if defined(ALPHA_TEST)
-    if (diffuse.a < 0.5) {
-        discard;
+  #ifdef ALPHA_TEST
+    if (!gl_FrontFacing || (diffuse.a < 0.6)) {
+      discard;
     }
-#endif
+  #endif
 
 #if defined(SEASONS) && (defined(OPAQUE) || defined(ALPHA_TEST))
     diffuse.rgb *=

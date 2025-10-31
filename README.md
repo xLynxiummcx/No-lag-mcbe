@@ -1,17 +1,9 @@
 # No-lag-mcbe
-# No-lag-client 
 
-NOTE : I Rarely upload releases[it is mostly unstable,so Refer to mcpedl -
-https://mcpedl.com/no-lag-client/
-
-
-A minimal client/texture pack/shader made to increase fps by removing unnecessary things
-
-> * only support Android for now  
-] * you git clone and build for other platforms
+A minimal shader made to increase fps by removing unnecessary things
 
 ### How to use ###
 
 > * 1.download a release
-> * 2.import to Minecraft patch
+> * 2.import to Minecraft using mb loader
 > * 3.Activate on global resources

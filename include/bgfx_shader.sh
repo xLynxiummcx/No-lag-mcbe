@@ -779,6 +779,8 @@ uniform vec4  u_alphaRef4;
 uniform vec4  u_prevWorldPosOffset;
 uniform mat4  u_prevViewProj;
 
+#include <config.h>
+
 #endif // __cplusplus
 
 #endif // BGFX_SHADER_H_HEADER_GUARD

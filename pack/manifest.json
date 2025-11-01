@@ -1,0 +1,22 @@
+{
+  "format_version": 2,
+  "header": {
+    "description": "minimal shaders for performance and tools \n Features: tree leaves culling, no particles, no weather, night vision, vanilla ao debug and smoothfog\n§cOnly works with Patched Minecraft",
+    "name": "PerfDebug V1",
+    "uuid": "e6c8c82b-7e3a-4c4a-bb9c-24cf3094e478",
+    "version": [0, 0, 1],
+    "min_engine_version": [1, 21, 20]
+  },
+  "modules": [
+    {
+      "description": "By Lynx(@micheallynx)",
+      "type": "resources",
+      "uuid": "1109a05a-ea8d-4180-81e6-7085ef27292c",
+      "version": [1, 2, 3]
+    }
+  ],
+  "metadata": {
+    "authors": ["LynxiumMC"],
+    "url": "whatup.com"
+  }
+}

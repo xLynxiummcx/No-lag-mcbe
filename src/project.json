@@ -1,0 +1,26 @@
+{
+  "base_profile": {
+    "platforms": ["ESSL_300"],
+    "merge_source": ["../gamebasematerials"],
+    "exclude_patterns": [".*", "_*"],
+    "include_search_paths": ["../include"]
+  },
+  "profiles": {
+    "android": {
+      "macros": [],
+      "platforms": ["ESSL_300"]
+    },
+    "ios": {
+      "macros": [],
+      "platforms": ["Metal"]
+    },
+    "windows": {
+      "macros": [],
+      "platforms": ["Direct3D_SM50"]
+    },
+    "allplatforms": {
+      "macros": ["CUSTOM_MACRO"],
+      "platforms": ["ESSL_310", "Metal", "Direct3D_SM50"]
+    }
+  }
+}

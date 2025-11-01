@@ -1,71 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-MBT_JAR_FILES=(env/jar/MaterialBinTool-0.9.1*.jar)
-MBT_JAR="java -jar ${MBT_JAR_FILES[0]}"
+# Exit immediately if a command exits with a non-zero status
+set -e
 
-SHADERC=env/bin/shaderc
-LIB_DIR=env/lib
+# Run Lazurite build on ./src for Windows
+lazurite build ./src -p allplatforms
 
-MBT_ARGS="--compile --shaderc $SHADERC --include include/"
-
-DATA_VER="1.20.0"
-DATA_DIR=data/$DATA_VER
-BUILD_DIR=build
-MATERIAL_DIR=materials
-
-TARGETS=""
-MATERIALS=""
-
-ARG_MODE=""
-for t in "$@"; do
-  if [ "${t:0:1}" == "-" ]; then
-    # mode
-    OPT=${t:1}
-    if [[ "$OPT" =~ ^[pmt]$ ]]; then
-      ARG_MODE=$OPT
-    else
-      echo "Invalid option: $t"      
-      exit 1
-    fi
-  elif [ "$ARG_MODE" == "p" ]; then
-    # target platform
-    TARGETS+="$t "
-  elif [ "$ARG_MODE" == "m" ]; then
-    # material files
-    MATERIALS+="$MATERIAL_DIR/$t "
-  elif [ "$ARG_MODE" == "t" ]; then
-    # mbt threads
-    THREADS="$t"
-  fi
-  shift
-done
-
-if [ -z "$TARGETS" ]; then
-  TARGETS="Android"
-fi
-
-if [ -z "$MATERIALS" ]; then
-  # all materials
-  MATERIALS="$MATERIAL_DIR/*"
-fi
-
-if [ -z "$THREADS" ]; then
-  # 1 thread per core
-  THREADS=$(nproc --all)
-fi
-
-MBT_ARGS+=" --threads $THREADS"
-
-echo "${MBT_JAR##*/}"
-for p in $TARGETS; do
-  echo "----------------------------------------------"
-  echo ">> Building materials - $p $DATA_VER:"
-  if [ -d "$DATA_DIR/$p" ]; then
-    for s in $MATERIALS; do
-      echo " - $s"
-      LD_LIBRARY_PATH=$LIB_DIR $MBT_JAR $MBT_ARGS --output $BUILD_DIR/$p --data $DATA_DIR/$p/${s##*/} $s -m
-    done
-  else
-    echo "Error: $DATA_DIR/$p not found"
-  fi
-done
+echo " Build finished successfully."

@@ -1,54 +1,48 @@
-name: updated build
+name: Lazurite Build
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: "Select the platform to build for"
+        required: true
+        default: "allplatforms"
+        type: choice
+        options:
+          - allplatforms
+          - ios
+          - windows
+          - android
 
 jobs:
-  build_linux:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: [3.x]
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: ${{ matrix.python-version }}
-      - name: Run setup script for Linux
-        run: |
-          chmod +x ./setup.sh
-          ./setup.sh
-      - name: Run build script for Linux
-        run: |
-          chmod +x ./build.sh
-          ./build.sh
-      - name: Upload build artifacts for Linux
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-artifacts-linux
-          path: |
-            ./build/Android
-            ./build/pack
-          
-  build_windows:
+  build:
     runs-on: windows-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Run build script for Windows
+
+      - name: Run setup.sh (Git Bash)
+        shell: bash
         run: |
-          .\build.bat
-      - name: Upload build artifacts for Windows
+          chmod +x setup.sh
+          ./setup.sh
+
+      - name: Build with Lazurite
+        shell: bash
+        run: |
+          echo "Building for platform: ${{ github.event.inputs.platform }}"
+          lazurite build ./src -p ${{ github.event.inputs.platform }}
+
+      - name: Upload build artifacts (final step)
+        if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: build-artifacts-windows
+          name: lazurite-${{ github.event.inputs.platform }}-build
           path: |
-            ./build/Windows
-            ./build/pack
+            build/**
+            dist/**
+            output/**
+            bin/**
+            pack/**
+          if-no-files-found: ignore

@@ -1,6 +1,6 @@
-# No-lag-mcbe
+# PerfDebug
 
-A minimal shader made to increase fps by removing unnecessary things
+A minimal shader made to increase fps by removing unnecessary things and also adds debugging stuff
 
 ### How to use ###
 

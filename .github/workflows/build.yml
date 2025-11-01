@@ -22,6 +22,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Setup Python 3.11+
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
       - name: Run setup.sh (Git Bash)
         shell: bash
         run: |
@@ -40,9 +45,6 @@ jobs:
         with:
           name: lazurite-${{ github.event.inputs.platform }}-build
           path: |
-            build/**
-            dist/**
-            output/**
-            bin/**
+            **/material.bin
             pack/**
           if-no-files-found: ignore

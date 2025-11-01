@@ -1,6 +1,10 @@
 #!/bin/bash
 set -e
 
+echo "[1/3] Checking Python 3..."
+# GitHub Windows runners already have Python, update pip
+python -m pip install --upgrade pip
+
 echo "[2/3] Installing lazurite 0.6.0..."
 python -m pip install lazurite==0.6.0
 

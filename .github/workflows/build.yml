@@ -39,12 +39,8 @@ jobs:
           echo "Building for platform: ${{ github.event.inputs.platform }}"
           lazurite build ./src -p ${{ github.event.inputs.platform }}
 
-      - name: Upload build artifacts (final step)
-        if: success()
+      - name: Upload all build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: lazurite-${{ github.event.inputs.platform }}-build
-          path: |
-            **/material.bin
-            pack/**
-          if-no-files-found: ignore
+          path: .

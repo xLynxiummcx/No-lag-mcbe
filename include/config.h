@@ -16,5 +16,5 @@
 #define NIGHT_VISION //enables night vision 
 
 #define REMOVE_AO
-
+//#define NO_TEXTURE // everything will be white 
 //////////////TOGGLE END

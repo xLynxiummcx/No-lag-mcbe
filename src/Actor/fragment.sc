@@ -58,5 +58,10 @@ void main() {
         albedo = applyHudOpacity(albedo, HudOpacity.x);
     #endif
 
+  #if defined(NO_TEXTURE)
+  albedo.rgb = vec3_splat(1.0);
+  #endif
+  
+
     gl_FragColor = albedo;
 }

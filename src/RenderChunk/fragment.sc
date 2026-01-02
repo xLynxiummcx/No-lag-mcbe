@@ -42,7 +42,11 @@ vertexColor.rgb = vertexColor.rgb / max(max(vertexColor.r,vertexColor.g)vertexCo
      diffuse.rgb = v_color0.ggg;
   #endif
   
-  #if defined(ENABLE_FOG)
+  #if defined(NO_TEXTURE)
+  diffuse.rgb = vec3_splat(1.0);
+  #endif
+  
+   #if defined(ENABLE_FOG)
     diffuse.rgb = mix(diffuse.rgb,v_fog.rgb,v_fog.a);
   #endif
   

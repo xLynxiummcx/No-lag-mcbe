@@ -44,11 +44,11 @@ void main() {
        fogColor.a   = smoothfog(FogAndDistanceControl.xy,relativeDist);
        
  
-  //Newb X Legacy
- // 0-255 = first 4 bits for y, remaining for x
-  float uvx16 = a_texcoord1.x * 15.9375; // 255/16
-  vec2 uv1 = vec2(fract(uvx16), floor(uvx16)*0.0625); // (a&15, a>>4)
-  
+  // Lightmap fix 1.21.130
+const float LIGHTMAP_SCALE = 1.0 / 15.0; 
+uvec2 encodedUV = uvec2(round(a_texcoord1 * 65535.0));
+vec2 uv1 = vec2(uvec2(encodedUV.y >> 4u, encodedUV.y) & uvec2(15u, 15u)) * LIGHTMAP_SCALE;
+
   #ifdef TRANSPARENT
     if (a_color0.a < 0.95) {
       color.a = mix(a_color0.a, 1.0, clamp(relativeDepth, 0.0, 1.0));

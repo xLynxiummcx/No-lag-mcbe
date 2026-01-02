@@ -9,12 +9,12 @@
 //////////////TOGGLE START
 
 
-//#define ENABLE_FOG // enables fog
+#define ENABLE_FOG // enables fog
 
 //#define AO_DEBUG // enables ao debug
 
-//#define NIGHT_VISION //enabled night vision 
+#define NIGHT_VISION //enables night vision 
 
-
+#define REMOVE_AO
 
 //////////////TOGGLE END

@@ -21,11 +21,17 @@ void main() {
     }
     #endif
 
+vec4 vertexColor = v_color0;
+
+#if defined(REMOVE_AO)
+vertexColor.rgb = vertexColor.rgb / max(max(vertexColor.r,vertexColor.g)vertexColor.b);
+#endif
+
     #if defined(SEASONS) && (defined(ALPHA_TEST) || defined(OPAQUE))
       diffuse.rgb *= mix(vec3_splat(1.0), 2.0 * texture2D(s_SeasonsTexture, v_color0.xy).rgb, v_color0.y);
       diffuse.rgb *= v_color0.aaa;
     #else
-      diffuse *= v_color0;
+      diffuse *= vertexColor;
     #endif
  
  #if !defined(NIGHT_VISION)

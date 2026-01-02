@@ -24,7 +24,7 @@ void main() {
 vec4 vertexColor = v_color0;
 
 #if defined(REMOVE_AO)
-vertexColor.rgb = vertexColor.rgb / max(max(vertexColor.r,vertexColor.g)vertexColor.b);
+vertexColor.rgb = vertexColor.rgb / max(max(vertexColor.r,vertexColor.g),vertexColor.b);
 #endif
 
     #if defined(SEASONS) && (defined(ALPHA_TEST) || defined(OPAQUE))
